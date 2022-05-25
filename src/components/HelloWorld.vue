@@ -31,11 +31,39 @@
 </template>
 
 <script>
+
+import {ToastService} from "@/mixins/ToastService";
+
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
+  mixins: [ToastService],
   props: {
-    msg: String
-  }
+    msg: String,
+    userTitle: {
+      type: String,
+      default: 'no-name'
+    }
+  },
+  data() {
+    return {
+      d: null
+    }
+  },
+  watch: {},
+  computed: {},
+  created() {
+  },
+  mounted() {
+    this.notifyuser();
+  },
+  methods: {
+    notifyuser() {
+      this.AppToast.success('Salut ' + this.userTitle)
+    }
+  },
+  components: {},
+  beforeUnmount() {
+  },
 }
 </script>
 

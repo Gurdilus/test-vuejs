@@ -1,7 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 :class="classUser">Hello {{ username }} {{ titleOfUser }} 🥉</h1>
+    <img v-if="message !== undefined" alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld v-if="message !== undefined"
+
+                :msg="message"/>
   </div>
 </template>
 
@@ -13,6 +16,31 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  data(){
+    return {
+      message: undefined,
+      username: 'Ark',
+    }
+  },
+  computed: {
+    titleOfUser() {
+      if(this.username === "Ark"){
+        return 'dieu du code';
+      }
+      return 'sale bronze';
+    },
+    classUser() {
+      if(this.username === "Ark"){
+        return 'h1';
+      }
+      return 'h4';
+    }
+  },
+  mounted(){
+    setTimeout(() => {
+      this.message = navigator.userAgent;
+    }, 1500)
   }
 }
 </script>
