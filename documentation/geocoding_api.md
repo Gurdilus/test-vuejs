@@ -2,6 +2,38 @@
 
 ## geolo.gouv - format response
 
+````js
+this.loading = true;
+this.results = undefined;
+this.geocoding.searchLocation(this.query, this.type)
+    .then(response => {
+        this.results = response?.data?.features;
+        if (this.results !== null && this.results !== undefined && this.results.length > 0) {
+            this.lastQuery = this.query;
+            return;
+        }
+        throw new Error('truc')
+
+    })
+    .catch(err => {
+        console.log('erreur', err)
+        this.AppToast.error('erreur');
+    })
+    .finally(() => {
+        this.loading = false;
+    })
+}
+},
+components: {
+}
+,
+beforeUnmount()
+{
+}
+,
+}
+````
+
 Les attributs retournés sont :
 
 - id : identifiant de l’adresse (clef d’interopérabilité)
