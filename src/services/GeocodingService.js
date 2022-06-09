@@ -1,4 +1,3 @@
-// Service meant to manage geocoding API calls to
 import http from "../http-common";
 
 //  Service meant to manage geocoding API calls to

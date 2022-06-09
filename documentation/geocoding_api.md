@@ -1,43 +1,36 @@
-# GEOCODIN API
+# GEOCODING API
 
-## geolo.gouv - format response
+## GeocodingService
 
-````js
-this.loading = true;
-this.results = undefined;
+### Search address
+
+```js
 this.geocoding.searchLocation(this.query, this.type)
     .then(response => {
-        this.results = response?.data?.features;
-        if (this.results !== null && this.results !== undefined && this.results.length > 0) {
-            this.lastQuery = this.query;
-            return;
+        let data_ = response?.data?.features;
+        if (data_ === undefined || data_ === null || data_.length <= 0) {
+            throw new Error('no results');
         }
-        throw new Error('truc')
-
+        this.results = data_;
+        // ... do something
     })
     .catch(err => {
-        console.log('erreur', err)
-        this.AppToast.error('erreur');
+        console.error('error', err);
     })
     .finally(() => {
         this.loading = false;
     })
-}
-},
-components: {
-}
-,
-beforeUnmount()
-{
-}
-,
-}
-````
+;
+```
+
+## geoloc.gouv - format response
+
+https://adresse.data.gouv.fr/api-doc/adresse
 
 Les attributs retournés sont :
 
-- id : identifiant de l’adresse (clef d’interopérabilité)
-- type : type de résultat trouvé
+- __id__ : identifiant de l’adresse (clef d’interopérabilité)
+- __type__ : type de résultat trouvé
 - housenumber : numéro « à la plaque »
 - street : position « à la voie », placé approximativement au centre de celle-ci
 - locality : lieu-dit
